@@ -1,14 +1,16 @@
 package com.oliveryy.action;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.oliveryy.service.IUserService;
+import com.oliveryy.service.ILoginService;
 //RegisterAction for register function 
 @Component 
 public class RegisterAction extends BaseAction{
 	@Autowired
-	private IUserService userService;
+	private ILoginService loginService;
 	private String id;
 	private String name;
 	private String pwd;
@@ -31,10 +33,23 @@ public class RegisterAction extends BaseAction{
 		this.pwd = pwd;
 	}
 	public String execute(){
-		if(this.userService.register(this.id.toString(), this.name,this.pwd)){
-			return "success";//
+		if(this.loginService.register(this.name,this.id,this.pwd)){
+			try {
+				getResponse().getWriter().write("success");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}else{
+			try {
+				getResponse().getWriter().write("failed");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
 		}
-		return null;
 	}
 
 

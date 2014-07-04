@@ -1,17 +1,18 @@
 package com.oliveryy.action;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.oliveryy.service.IMessageService;
-import com.oliveryy.service.IUserService;
+import com.oliveryy.service.ILoginService;
+
   
 @Component 
 public class LoginAction extends BaseAction{
 	@Autowired
-	private IUserService userService;
+	private ILoginService loginService;
 	@Autowired
-	private IMessageService MessageService;
 	
 	private String uid;//get uid
 	private String pwd;//get pwd
@@ -31,30 +32,18 @@ public class LoginAction extends BaseAction{
 	//default function to be execute
 	@SuppressWarnings("unchecked")
 	public String execute(){
-		if(this.userService.login(this.uid, this.pwd)){//judge sign in or not
-			if(this.userService.isAdmin(this.uid)){
-				//if not,set session isAdmin to be 1
-				this.getSession().put("isAdmin", 1);
-				this.getSession().put("nickName", this.uid);
-				this.getRequest().put("rows", this.MessageService.AdminMessage());
-				this.getSession().put("userinfo", "系统管理员");
-				return "success";//to go to index.jsp page
+		int p=loginService.canLogin(uid, pwd);
+		if(p==-1){
+			try {
+				getResponse().getWriter().write("error");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			else{
-				//if not,set session isAdmin to be 0
-				this.getSession().put("isAdmin", 0);
-				this.getSession().put("nickName", this.uid);
-				this.getRequest().put("rows", this.MessageService.CommonMessage(this.uid));
-				this.getSession().put("userinfo", this.uid+" 你好！");
-				return "success";//to go to index.jsp page
-			}
+			return null;
+		}else{
+			return "index";
 		}
-		return "error";//sign in failed, return error.jsp page
 	}
-
-
-
-
-	
 
 }
