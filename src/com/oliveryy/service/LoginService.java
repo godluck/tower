@@ -30,10 +30,10 @@ public class LoginService implements ILoginService{
 		Map[] rows=dao.runSelect(test, p);
 		int n=Integer.parseInt(rows[0].get("n").toString());
 		if(n==0){
-		String sql="insert into user values(?,?,?,3,null)";
-		Object[] params={userName,nickName,password};
-		dao.runUpdate(sql, params);
-		return true;
+			String sql="insert into user values(?,?,?,3,null)";
+			Object[] params={userName,nickName,password};
+			dao.runUpdate(sql, params);
+			return true;
 		}else{
 			return false;
 		}

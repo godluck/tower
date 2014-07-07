@@ -1,8 +1,11 @@
 package com.oliveryy.dao;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
 
 import javax.servlet.jsp.jstl.sql.Result;
@@ -20,7 +23,7 @@ public class DbHelperImpl implements IDbhelper {
 	}
 	private Connection getConnection(){		
 		try{
-			
+
 			Connection conn=dataSource.getConnection();
 			return conn;
 		}catch (Exception e) {
@@ -122,10 +125,44 @@ public class DbHelperImpl implements IDbhelper {
 			}
 		}				
 	}
+	@Override
+	public ResultSet doSelect(String sql, Object[] param) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		conn = getConnection();
+		try {
+			ps = conn.prepareStatement(sql);
+			for (int i = 0; i < param.length; i++) {
+				ps.setObject(i + 1, param[i]);
+			}
+			rs = ps.executeQuery();
+			return rs;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public ResultSet doSelect(String sql) {
+		Connection conn = null;
+		Statement s = null;
+		ResultSet rs = null;
+		conn = getConnection();
+		try {
+			s = conn.createStatement();
+			rs = s.executeQuery(sql);
+			return rs;
+		} catch (SQLException e) {
+			//
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 
 
 
 
-		
+
 }
