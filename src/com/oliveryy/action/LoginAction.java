@@ -35,13 +35,22 @@ public class LoginAction extends BaseAction{
 		int p=loginService.canLogin(uid, pwd);
 		if(p==-1){
 			try {
-				getResponse().getWriter().write("error");
+				getResponse().getWriter().write("password_error");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}else if(p==-2){
+			try {
+				getResponse().getWriter().write("username_error");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
 		}else{
+			
 			return "index";
 		}
 	}

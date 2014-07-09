@@ -13,13 +13,17 @@ public class LoginService implements ILoginService{
 	private IDbhelper dao;
 	@Override
 	public int canLogin(String userName, String password) {
-		String sql="select role from user where user_id=? and user_password=?";
-		Object[] params={userName,password};
+		String sql="select user_password,user_role from user where user_id=?";
+		Object[] params={userName};
 		Map[] rows=dao.runSelect(sql,params);
-		if(rows.length<=0||rows.length>1){
-			return -1;
+		if(rows!=null&&rows.length==1){
+			if(rows[0].get("user_password").toString()==password){
+				return Integer.parseInt(rows[0].get("user_role").toString());
+			}else{
+				return -1;
+			}
 		}else{
-			return Integer.parseInt(rows[0].get("role").toString());
+			return -2;
 		}
 	}
 
@@ -30,9 +34,14 @@ public class LoginService implements ILoginService{
 		Map[] rows=dao.runSelect(test, p);
 		int n=Integer.parseInt(rows[0].get("n").toString());
 		if(n==0){
+
 			String sql="insert into user values(?,?,?,3,null)";
 			Object[] params={userName,nickName,password};
-			dao.runUpdate(sql, params);
+			try {
+				dao.runUpdate(sql, params);
+			} catch (Exception e) {
+				return false;
+			}
 			return true;
 		}else{
 			return false;

@@ -15,116 +15,122 @@ import javax.sql.DataSource;
 //IDbhelper implement
 public class DbHelperImpl implements IDbhelper {
 	private DataSource dataSource;
+
 	public DataSource getDataSource() {
 		return dataSource;
 	}
+
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
-	private Connection getConnection(){		
-		try{
 
-			Connection conn=dataSource.getConnection();
+	private Connection getConnection() {
+		try {
+
+			Connection conn = dataSource.getConnection();
 			return conn;
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	//select method with parameters
-	public Map[] runSelect(String sql,Object[] params){
-		Connection conn=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		try{			
-			conn=getConnection();
-			ps=conn.prepareStatement(sql);
-			for(int i=0;i<params.length;i++){
-				ps.setObject(i+1, params[i]);
-			}					 	
-			rs=ps.executeQuery();
-			Result result=ResultSupport.toResult(rs);
-			Map[] rows=result.getRows();			
-			return rows;
-		}catch (Exception e) {
+
+	// select method with parameters
+	public Map[] runSelect(String sql, Object[] params) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			for (int i = 0; i < params.length; i++) {
+				ps.setObject(i + 1, params[i]);
+			}
+			rs = ps.executeQuery();
+			if (rs.next() == true) {
+				Result result = ResultSupport.toResult(rs);
+				Map[] rows = result.getRows();
+				return rows;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally{
-			try{
+		} finally {
+			try {
 				rs.close();
-				ps.close();				
+				ps.close();
 				conn.close();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}				
+		}
 	}
-	//select method without parameters
-	public Map[] runSelect(String sql){
-		Connection conn=null;
-		PreparedStatement ps=null;
-		ResultSet rs=null;
-		try{			
-			conn=getConnection();
-			ps=conn.prepareStatement(sql);
-			rs=ps.executeQuery();
-			Result result=ResultSupport.toResult(rs);
-			Map[] rows=result.getRows();			
-			return rows;
-		}catch (Exception e) {
+
+	// select method without parameters
+	public Map[] runSelect(String sql) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			conn = getConnection();
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+			if (rs.next() == true) {
+				Result result = ResultSupport.toResult(rs);
+				Map[] rows = result.getRows();
+				return rows;
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}finally{
-			try{
+		} finally {
+			try {
 				rs.close();
-				ps.close();				
+				ps.close();
 				conn.close();
-			}catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}				
+		}
 	}
-	//update and delete methods without parameters
-	public void runUpdate(String sql){
-		Connection conn=null;
-		PreparedStatement ps=null;
-		try{			
-			conn=getConnection();
-			ps=conn.prepareStatement(sql);
-			ps.executeUpdate();
-		}catch (Exception e) {
+
+	// update and delete methods without parameters
+	public void runUpdate(String sql) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = getConnection();
+		ps = conn.prepareStatement(sql);
+		ps.executeUpdate();
+		try {
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				ps.close();				
-				conn.close();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}				
+		}
 	}
-	//update and delete methods with parameters
-	public void runUpdate(String sql,Object[] params){
-		Connection conn=null;
-		PreparedStatement ps=null;
-		try{			
-			conn=getConnection();
-			ps=conn.prepareStatement(sql);
-			for(int i=0;i<params.length;i++){
-				ps.setObject(i+1, params[i]);
-			}	
-			ps.executeUpdate();
-		}catch (Exception e) {
+
+	// update and delete methods with parameters
+	public void runUpdate(String sql, Object[] params) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		conn = getConnection();
+		ps = conn.prepareStatement(sql);
+		for (int i = 0; i < params.length; i++) {
+			ps.setObject(i + 1, params[i]);
+		}
+		ps.executeUpdate();
+		try {
+			ps.close();
+			conn.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				ps.close();				
-				conn.close();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}				
+		}
 	}
+
 	@Override
 	public ResultSet doSelect(String sql, Object[] param) {
 		Connection conn = null;
@@ -143,6 +149,7 @@ public class DbHelperImpl implements IDbhelper {
 			return null;
 		}
 	}
+
 	@Override
 	public ResultSet doSelect(String sql) {
 		Connection conn = null;
@@ -159,10 +166,5 @@ public class DbHelperImpl implements IDbhelper {
 			return null;
 		}
 	}
-
-
-
-
-
 
 }

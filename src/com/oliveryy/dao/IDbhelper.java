@@ -12,8 +12,8 @@ public interface IDbhelper {
 
 	public Map[] runSelect(String sql);
 
-	public void runUpdate(String sql);
+	public void runUpdate(String sql) throws Exception;
 
-	public void runUpdate(String sql, Object[] params);
+	public void runUpdate(String sql, Object[] params) throws Exception;
 
 }
