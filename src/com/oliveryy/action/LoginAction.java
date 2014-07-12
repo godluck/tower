@@ -1,17 +1,21 @@
 package com.oliveryy.action;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.oliveryy.service.ILoginService;
+import com.oliveryy.service.IUserService;
 
   
 @Component 
 public class LoginAction extends BaseAction{
 	@Autowired
 	private ILoginService loginService;
+	@Autowired
+	private IUserService userService;
 	@Autowired
 	
 	private String uid;//get uid
@@ -50,7 +54,9 @@ public class LoginAction extends BaseAction{
 			}
 			return null;
 		}else{
-			
+			getSession().put("id", uid);
+			getSession().put("role", p);
+			Map row=userService.getUserInfo(uid);
 			return "index";
 		}
 	}

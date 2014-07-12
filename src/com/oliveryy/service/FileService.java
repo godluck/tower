@@ -11,10 +11,10 @@ public class FileService implements IFileService {
 	@Autowired
 	private IDbhelper dao;
 	@Override
-	public boolean upLoadFile(int groupId, String fileName,String fileDescription,String userId) {
+	public boolean upLoadFile(String id,String groupId, String fileName,String fileType,String userId) {
 		try{
-			String sql="insert into file values(null,?,?,?,0,null,?,?)";
-			Object[] params={groupId,fileName,fileName.substring(fileName.lastIndexOf(".")+1),fileDescription,userId};
+			String sql="insert into file values(?,?,?,?,0,null,null,?)";
+			Object[] params={id,groupId,fileName,fileType,userId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -23,10 +23,10 @@ public class FileService implements IFileService {
 	}
 
 	@Override
-	public boolean upLoadReport(int groupId, String fileName, String fileType,String userId) {
+	public boolean upLoadReport(String id,String groupId, String fileName, String fileType,String userId) {
 		try{
-			String sql="insert into file values(null,?,?,?,3,null,null,?)";
-			Object[] params={groupId,fileName,fileName.substring(fileName.lastIndexOf(".")+1),userId};
+			String sql="insert into file values(?,?,?,?,3,null,null,?)";
+			Object[] params={id,groupId,fileName,fileType,userId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -69,15 +69,23 @@ public class FileService implements IFileService {
 	}
 
 	@Override
-	public boolean upLoadPhoto(int groupId, String fileName, String fileType,String userId) {
+	public boolean upLoadPhoto(String id,String groupId, String fileName, String fileType,String userId) {
 		try{
-			String sql="insert into file values(null,?,?,?,4,null,null,?)";
-			Object[] params={groupId,fileName,fileName.substring(fileName.lastIndexOf(".")+1),userId};
+			String sql="insert into file values(?,?,?,?,4,null,null,?)";
+			Object[] params={id,groupId,fileName,fileType,userId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
 			}
 		return true;
+	}
+
+	@Override
+	public String downLoadFile(String id) {
+		String sql="select file_name,file_type from file where file_id=?";
+		Object[] params={id};
+		Map[] rows=dao.runSelect(sql,params);
+		return rows[0].get("file_name").toString()+"."+rows[0].get("file_type").toString();
 	}
 
 }
