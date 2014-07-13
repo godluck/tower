@@ -12,10 +12,10 @@ public class TaskService implements ITaskService {
 	@Autowired
 	private IDbhelper dao;
 	@Override
-	public boolean createTask(String taskName, String groupId, Date deadline) {
+	public boolean createTask(String taskName, String groupId,String detail, Date deadline) {
 		try{
-			String sql="insert into task values(null,?,?,?,?)";
-			Object[] params={groupId,taskName,deadline,deadline};
+			String sql="insert into task values(null,?,?,?,?,0)";
+			Object[] params={groupId,taskName,detail,deadline};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -42,6 +42,32 @@ public class TaskService implements ITaskService {
 		try{
 			String sql="delete from task where task_id=?";
 			Object[] params={TaskId};
+			dao.runUpdate(sql, params);
+			}catch(Exception e){
+				return false;
+			}
+		return true;
+	}
+
+	@Override
+	public Map[] getUTasks(String userid) {
+		String sql="select * from task where user_id=?";
+		Object[] params={userid};
+		return dao.runSelect(sql, params);
+	}
+
+	@Override
+	public Map[] getGTasks(String groupid) {
+		String sql="select * from task where group_id=?";
+		Object[] params={groupid};
+		return dao.runSelect(sql, params);
+	}
+
+	@Override
+	public boolean finishTask(String taskId) {
+		try{
+			String sql="update task set task_status=1 where task_id=?";
+			Object[] params={taskId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;

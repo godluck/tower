@@ -1,6 +1,7 @@
 package com.oliveryy.service;
 
 import java.sql.Date;
+import java.util.Map;
 
 public interface ITaskService {
 	
@@ -8,6 +9,8 @@ public interface ITaskService {
 	
 	public boolean deleteTask(String TaskId);
 	
-	boolean createTask(String taskName, String groupId, Date deadline);
-
+	boolean createTask(String taskName, String groupId,String detail, Date deadline);
+	public boolean finishTask(String taskId);
+	public Map[] getUTasks(String userid);
+	public Map[] getGTasks(String groupid);
 }

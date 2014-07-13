@@ -71,4 +71,10 @@ public class GroupService implements IGroupService {
 		return true;
 	}
 
+	@Override
+	public Map[] getGroups() {
+		String sql="select * from groups";
+		return dao.runSelect(sql);
+	}
+
 }

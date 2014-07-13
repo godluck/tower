@@ -23,5 +23,6 @@ public interface IGroupService {
 
 	
 	public boolean setProject(String groupId, String projName);
-
+	
+	public Map[] getGroups();
 }

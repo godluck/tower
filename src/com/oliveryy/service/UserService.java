@@ -13,7 +13,7 @@ public class UserService implements IUserService {
 	@Override
 	public Map getUserInfo(String userId) {
 		// TODO Auto-generated method stub
-		String sql="select * from user where user_id=?";
+		String sql="select user_id,user_name,group_id,role from user where user_id=?";
 		Object[] params={userId};
 		Map[] rows=dao.runSelect(sql, params);
 		return rows[0];

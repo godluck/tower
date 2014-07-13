@@ -16,7 +16,6 @@ public class LoginAction extends BaseAction{
 	private ILoginService loginService;
 	@Autowired
 	private IUserService userService;
-	@Autowired
 	
 	private String uid;//get uid
 	private String pwd;//get pwd
@@ -53,11 +52,12 @@ public class LoginAction extends BaseAction{
 				e.printStackTrace();
 			}
 			return null;
+		}else if (p==0||p==1){
+			getSession().put("id", uid);
+			return "projrct";
 		}else{
 			getSession().put("id", uid);
-			getSession().put("role", p);
-			Map row=userService.getUserInfo(uid);
-			return "index";
+			return "myself";
 		}
 	}
 
