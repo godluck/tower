@@ -77,4 +77,16 @@ public class GroupService implements IGroupService {
 		return dao.runSelect(sql);
 	}
 
+	@Override
+	public boolean deleteGroup(String groupId) {
+		try{
+			String sql = "delete from groups where group_id=?";
+			Object[] param = { groupId };
+			dao.runUpdate(sql, param);
+			}catch(Exception e){
+				return false;
+			}
+		return true;
+	}
+
 }

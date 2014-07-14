@@ -46,11 +46,11 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean setUpNewGroup(String userId,String groupName) {
+	public int setUpNewGroup(String userId,String groupName,String groupDescription) {
 		// TODO Auto-generated method stub
 		try{
-			String sql="insert into groups values(null,?,0,?)";
-			Object[] params={groupName,userId};
+			String sql="insert into groups values(null,?,0,?,?)";
+			Object[] params={groupName,userId,groupDescription};
 			dao.runUpdate(sql, params);
 			String sql2="select group_id from groups where userId=?";
 			Object[] params2={userId};
@@ -59,10 +59,10 @@ public class UserService implements IUserService {
 			String sql3="update table user set group_id=? where user_id=?";
 			Object[] params3={g_id,userId};
 			dao.runUpdate(sql3, params3);
+			return Integer.parseInt(g_id);
 			}catch(Exception e){
-				return false;
+				return -1;
 			}
-		return true;
 	}
 
 	@Override

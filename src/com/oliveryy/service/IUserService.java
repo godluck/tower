@@ -18,7 +18,7 @@ public interface IUserService {
 	boolean updatePassword(String userId, String newPassword);
 
 
-	boolean setUpNewGroup(String userId,String groupName);
+	int setUpNewGroup(String userId,String groupName,String groupDescription);
 
 
 
