@@ -49,7 +49,7 @@ public class IprojectAction extends BaseAction {
 				e.printStackTrace();
 			}
 		}
-		Map[] discussions=discussionService.getDiscussions(groupId);
+		Map[] discussions=discussionService.getDiscussions(groupId,"d");
 		Map[] files=fileService.getFileList(groupId);
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONArray jtasks=JSONArray.fromObject(tasks);

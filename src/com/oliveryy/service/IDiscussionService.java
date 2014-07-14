@@ -6,7 +6,7 @@ import java.util.Map;
 public interface IDiscussionService {
 
 	public boolean createDiscussion(String userId, String groupId, String title,
-			String content);
+			String content,String type);
 
 	public boolean deleteDiscussion(String discussionId);
 
@@ -14,6 +14,6 @@ public interface IDiscussionService {
 
 	boolean reply(String discussionId, String content, String userId, Date time);
 	
-	public Map getDiscussion(String discussionId);
-	public Map[] getDiscussions(String groupId);
+	public Map getDiscussion(String discussionId,String type);
+	public Map[] getDiscussions(String groupId,String type);
 }

@@ -21,7 +21,7 @@ public class IdiscussionAction extends BaseAction{
 		String id=getSession().get("id").toString();
 		Map user=userService.getUserInfo(id);
 		Map[] replys=discussionService.getDetail(disId);
-		Map dis=discussionService.getDiscussion(disId);
+		Map dis=discussionService.getDiscussion(disId,"d");
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONObject jdis=JSONObject.fromObject(dis);
 		JSONArray jreplys=JSONArray.fromObject(replys);

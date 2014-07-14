@@ -13,10 +13,10 @@ public class DiscussionService implements IDiscussionService {
 	private IDbhelper dao;
 	@Override
 	public boolean createDiscussion(String userId, String groupId,
-			String title, String content) {
+			String title, String content,String type) {
 		try{
-			String sql="insert into discussion values(null,?,?,?,?,now())";
-			Object[] params={userId, groupId,title, content};
+			String sql="insert into discussion values(null,?,?,?,?,now(),?)";
+			Object[] params={userId, groupId,title, content,type};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -57,16 +57,16 @@ public class DiscussionService implements IDiscussionService {
 	}
 
 	@Override
-	public Map getDiscussion(String discussionId) {
-		String sql="select * from discussion where discussion_id=?";
-		Object[] params={discussionId};
+	public Map getDiscussion(String discussionId,String type) {
+		String sql="select * from discussion where discussion_id=? and discussion_type=?";
+		Object[] params={discussionId,type};
 		return dao.runSelect(sql, params)[0];
 	}
 
 	@Override
-	public Map[] getDiscussions(String groupId) {
-		String sql="select * from discussion where group_id=?";
-		Object[] params={groupId};
+	public Map[] getDiscussions(String groupId,String type) {
+		String sql="select * from discussion where group_id=? and discussion_type=?";
+		Object[] params={groupId,type};
 		return dao.runSelect(sql, params);
 	}
 
