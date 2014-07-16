@@ -16,7 +16,7 @@ public class DiscussionService implements IDiscussionService {
 			String title, String content,String type) {
 		try{
 			String sql="insert into discussion values(null,?,?,?,?,now(),?)";
-			Object[] params={userId, groupId,title, content,type};
+			Object[] params={groupId,userId,title, content,type};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -26,10 +26,10 @@ public class DiscussionService implements IDiscussionService {
 
 	@Override
 	public boolean reply(String discussionId, String content,
-			String userId, Date time) {
+			String userId) {
 		try{
-			String sql="insert into reply values(null,?,?,?,?)";
-			Object[] params={discussionId, content,userId, content,time};
+			String sql="insert into reply values(?,null,?,now(),?)";
+			Object[] params={discussionId, userId,content};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;

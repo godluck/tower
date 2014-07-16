@@ -13,7 +13,7 @@ public class UserService implements IUserService {
 	@Override
 	public Map getUserInfo(String userId) {
 		// TODO Auto-generated method stub
-		String sql="select user_id,user_name,group_id,role from user where user_id=?";
+		String sql="select user_id,user_name,group_id,user_role from user where user_id=?";
 		Object[] params={userId};
 		Map[] rows=dao.runSelect(sql, params);
 		return rows[0];
@@ -49,16 +49,19 @@ public class UserService implements IUserService {
 	public int setUpNewGroup(String userId,String groupName,String groupDescription) {
 		// TODO Auto-generated method stub
 		try{
-			String sql="insert into groups values(null,?,0,?,?)";
+			String sql="insert into groups values(null,?,0,?,?,now())";
 			Object[] params={groupName,userId,groupDescription};
 			dao.runUpdate(sql, params);
 			String sql2="select group_id from groups where user_id=?";
 			Object[] params2={userId};
 			Map[] rows=dao.runSelect(sql2,params2);
 			String g_id=rows[0].get("m").toString();
-			String sql3="update table user set group_id=? where user_id=?";
+			String sql3="update user set group_id=? where user_id=?";
 			Object[] params3={g_id,userId};
 			dao.runUpdate(sql3, params3);
+			String sql4="update user set user_role=2 where user_id=?";
+			Object[] params4={userId};
+			dao.runUpdate(sql4, params4);
 			return Integer.parseInt(g_id);
 			}catch(Exception e){
 				return -1;

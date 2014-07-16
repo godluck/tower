@@ -12,7 +12,7 @@ public interface IDiscussionService {
 
 	public Map[] getDetail(String discussionId);
 
-	boolean reply(String discussionId, String content, String userId, Date time);
+	boolean reply(String discussionId, String content, String userId);
 	
 	public Map getDiscussion(String discussionId,String type);
 	public Map[] getDiscussions(String groupId,String type);

@@ -76,9 +76,7 @@ public class DiscussionAction extends BaseAction {
 	}
 
 	public String reply() {
-		Date d = new Date();
-		if (discussionService.reply(discussionId, discussionContent, id,
-				(java.sql.Date) d)) {
+		if (discussionService.reply(discussionId, discussionContent, id)) {
 			getWriter().write("{error:0}");
 		} else {
 			getWriter().write("{error:1,reason:\"failed to create new reply\"}");

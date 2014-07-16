@@ -15,7 +15,7 @@ public class TaskService implements ITaskService {
 	public boolean createTask(String taskName, String groupId,String detail, Date deadline) {
 		try{
 			String sql="insert into task values(null,?,?,?,?,0)";
-			Object[] params={groupId,taskName,detail,deadline};
+			Object[] params={groupId,taskName,deadline,detail};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
 				return false;
@@ -28,7 +28,7 @@ public class TaskService implements ITaskService {
 		try{
 			String sql="insert into task_assign values(?,?,?)";
 			for(int i=0;i<userIds.length;i++){
-				Object[] params={taskId,userIds[i],groupId};
+				Object[] params={userIds[i],taskId,groupId};
 				dao.runUpdate(sql, params);
 			}
 			}catch(Exception e){
