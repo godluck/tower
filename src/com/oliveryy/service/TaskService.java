@@ -51,7 +51,7 @@ public class TaskService implements ITaskService {
 
 	@Override
 	public Map[] getUTasks(String userid) {
-		String sql="select * from task where user_id=?";
+		String sql="select t.group_id,t.task_id,t.task_name,t.task_deadline,t.task_detail,t.task_status from task t,task_assign ta where user_id=? and t.task_id=ta.task_id";
 		Object[] params={userid};
 		return dao.runSelect(sql, params);
 	}

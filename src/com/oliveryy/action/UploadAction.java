@@ -20,18 +20,12 @@ public class UploadAction extends BaseAction {
 	@Autowired
 	private IFileService fileService;
 	private String groupId;
-	private String userId;
+	private String id=getSession().get("id").toString();
 	public String getGroupId() {
 		return groupId;
 	}
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 	public String excute() {
 		int num = 0;
@@ -46,12 +40,12 @@ public class UploadAction extends BaseAction {
 				SimpleDateFormat df=new SimpleDateFormat("yyyyMMddHHmmss");
 				String fileId=df.format(new Date());
 				num = up.save("/file/"+fileId+"."+fileType);
-				fileService.upLoadFile(fileId, groupId, fileName,fileType ,userId);
+				fileService.upLoadFile(fileId, groupId, fileName,fileType ,id);
 			}
-			getWriter().write("upload success");
+			getWriter().write("{error:0}");
 			return null;
 		} catch (Exception e) {
-			getWriter().write("unknown error");
+			getWriter().write("{error:1,reason:\"failed to upload\"}");
 			e.printStackTrace();
 			return null;
 		}

@@ -55,9 +55,9 @@ public class DiscussionAction extends BaseAction {
 
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "d")) {
-			getWriter().write("success");
+			getWriter().write("{error:0}");
 		} else {
-			getWriter().write("failed");
+			getWriter().write("{error:1,reason:\"failed to create new discussion\"}");
 		}
 		;
 		return null;
@@ -67,9 +67,9 @@ public class DiscussionAction extends BaseAction {
 
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "r")) {
-			getWriter().write("success");
+			getWriter().write("{error:0}");
 		} else {
-			getWriter().write("failed");
+			getWriter().write("{error:1,reason:\"failed to create new report\"}");
 		}
 		;
 		return null;
@@ -79,9 +79,9 @@ public class DiscussionAction extends BaseAction {
 		Date d = new Date();
 		if (discussionService.reply(discussionId, discussionContent, id,
 				(java.sql.Date) d)) {
-			getWriter().write("success");
+			getWriter().write("{error:0}");
 		} else {
-			getWriter().write("failed");
+			getWriter().write("{error:1,reason:\"failed to create new reply\"}");
 		}
 		;
 		return null;
@@ -91,13 +91,13 @@ public class DiscussionAction extends BaseAction {
 		if (Integer.parseInt(userService.getUserInfo(id).get("user_role")
 				.toString()) < 3) {
 			if (discussionService.deleteDiscussion(discussionId)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to delete discussion\"}");
 			}
 			;
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 	}

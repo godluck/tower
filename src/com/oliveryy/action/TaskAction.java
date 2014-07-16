@@ -65,17 +65,17 @@ public class TaskAction extends BaseAction {
 			try {
 				dl = (Date) df.parse(deadline);
 				if (taskService.createTask(taskName, groupId, taskDetail, dl)) {
-					getWriter().write("success");
+					getWriter().write("{error:0}");
 				} else {
-					getWriter().write("failed");
+					getWriter().write("{error:1,reason:\"failed to create new task\"}");
 				}
 				;
 			} catch (ParseException e) {
-				getWriter().write("dateFormatError");
+				getWriter().write("{error:1,reason:\"wrong date format\"}");
 				e.printStackTrace();
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 
@@ -85,21 +85,21 @@ public class TaskAction extends BaseAction {
 		if (role < 3) {
 			String[] temp = { userId };
 			if (taskService.assignTask(taskId, temp, groupId)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to assign task\"}");
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 	}
 
 	public String finishTask() {
 		if (taskService.finishTask(taskId)) {
-			getWriter().write("success");
+			getWriter().write("{error:0}");
 		} else {
-			getWriter().write("failed");
+			getWriter().write("{error:1,reason:\"failed to finish task\"}");
 		}
 		;
 		return null;

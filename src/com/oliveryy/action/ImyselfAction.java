@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.oliveryy.service.IDiscussionService;
 import com.oliveryy.service.ITaskService;
 import com.oliveryy.service.IUserService;
 
@@ -19,6 +20,8 @@ public class ImyselfAction extends BaseAction {
 	private IUserService userService;
 	@Autowired
 	private ITaskService taskService;
+	@Autowired
+	private IDiscussionService discusstionService;
 	public String excute(){
 		String id=getSession().get("id").toString();
 		Map user=userService.getUserInfo(id);
@@ -39,9 +42,11 @@ public class ImyselfAction extends BaseAction {
 				e.printStackTrace();
 			}
 		}
+		Map[] reports=discusstionService.getDiscussions(id, "r");
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONArray jtask=JSONArray.fromObject(tasks);
-		String result="{id:"+id+",userinfo:"+juser.toString()+",tasks:"+jtask.toString()+"}";
+		JSONArray jreports=JSONArray.fromObject(reports);
+		String result="{id:"+id+",userinfo:"+juser.toString()+",tasks:"+jtask.toString()+",reports:"+jreports.toString()+"}";
 		getWriter().write(result);
 		return null;
 	}

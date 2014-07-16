@@ -16,4 +16,5 @@ public interface IDiscussionService {
 	
 	public Map getDiscussion(String discussionId,String type);
 	public Map[] getDiscussions(String groupId,String type);
+	public Map[] getUserReports(String userId,String type);
 }

@@ -52,7 +52,7 @@ public class UserService implements IUserService {
 			String sql="insert into groups values(null,?,0,?,?)";
 			Object[] params={groupName,userId,groupDescription};
 			dao.runUpdate(sql, params);
-			String sql2="select group_id from groups where userId=?";
+			String sql2="select group_id from groups where user_id=?";
 			Object[] params2={userId};
 			Map[] rows=dao.runSelect(sql2,params2);
 			String g_id=rows[0].get("m").toString();

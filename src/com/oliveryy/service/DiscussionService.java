@@ -70,6 +70,13 @@ public class DiscussionService implements IDiscussionService {
 		return dao.runSelect(sql, params);
 	}
 
+	@Override
+	public Map[] getUserReports(String userId, String type) {
+		String sql="select * from discussion where user_id=? and discussion_type=?";
+		Object[] params={userId,type};
+		return dao.runSelect(sql, params);
+	}
+
 	
 
 }

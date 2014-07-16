@@ -35,7 +35,7 @@ public class RegisterAction extends BaseAction{
 	public String execute(){
 		if(this.loginService.register(this.name,this.id,this.pwd)){
 			try {
-				getResponse().getWriter().write("success");
+				getResponse().getWriter().write("{error:0}");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -43,7 +43,7 @@ public class RegisterAction extends BaseAction{
 			return null;
 		}else{
 			try {
-				getResponse().getWriter().write("failed");
+				getResponse().getWriter().write("{error:1,reason:\"duplicate username\"}");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

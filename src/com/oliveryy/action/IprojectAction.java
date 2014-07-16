@@ -51,11 +51,13 @@ public class IprojectAction extends BaseAction {
 		}
 		Map[] discussions=discussionService.getDiscussions(groupId,"d");
 		Map[] files=fileService.getFileList(groupId);
+		Map[] reports=discussionService.getDiscussions(groupId, "r");
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONArray jtasks=JSONArray.fromObject(tasks);
 		JSONArray jdiscussions=JSONArray.fromObject(discussions);
 		JSONArray jfiles=JSONArray.fromObject(files);
-		String result="{id:"+id+",userinfo:"+juser.toString()+",tasks:"+jtasks.toString()+",discussions:"+jdiscussions.toString()+",files:"+jfiles.toString()+"}";
+		JSONArray jreports=JSONArray.fromObject(reports);
+		String result="{id:"+id+",userinfo:"+juser.toString()+",tasks:"+jtasks.toString()+",discussions:"+jdiscussions.toString()+",files:"+jfiles.toString()+",reports:"+jreports.toString()+"}";
 		getWriter().write(result);
 		return null;
 	}

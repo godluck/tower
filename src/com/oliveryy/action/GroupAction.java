@@ -20,7 +20,7 @@ public class GroupAction extends BaseAction {
 	private String groupMember;
 
 	public String createGroup() {
-		if (userService.getUserInfo(id).get("group_id") != null) {
+		if (userService.getUserInfo(id).get("group_id") == null) {
 			int g=userService.setUpNewGroup(id, groupName, groupDescription);
 			if (g>0) {
 				JSONArray group_member=JSONArray.fromObject(groupMember);
@@ -30,12 +30,12 @@ public class GroupAction extends BaseAction {
 						getWriter().write("m"+i+"failed");
 					}
 				}
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to setup new group\"}");
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"You already have a group\"");
 		}
 		return null;
 	}
@@ -43,12 +43,12 @@ public class GroupAction extends BaseAction {
 	public String deleteGroup() {
 		if (role<2) {
 			if (groupService.deleteGroup(groupId)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to delete the group\"}");
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 	}
@@ -56,21 +56,21 @@ public class GroupAction extends BaseAction {
 	public String addMember() {
 		if (role<3) {
 			if (groupService.addMember(groupMember, groupId)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to add new member\"}");
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 	}
 
 	public String changeGroup() {
 			if (userService.joinGroup(id, groupId)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to change group\"}");
 			}
 		return null;
 	}
@@ -78,12 +78,12 @@ public class GroupAction extends BaseAction {
 	public String editGroupName() {
 		if (role<3) {
 			if (groupService.setProject(groupId, groupName)) {
-				getWriter().write("success");
+				getWriter().write("{error:0}");
 			} else {
-				getWriter().write("failed");
+				getWriter().write("{error:1,reason:\"failed to edit group name\"}");
 			}
 		} else {
-			getWriter().write("insufficient privileges");
+			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
 		}
 		return null;
 	}

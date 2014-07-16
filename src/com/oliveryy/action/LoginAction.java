@@ -38,7 +38,7 @@ public class LoginAction extends BaseAction{
 		int p=loginService.canLogin(uid, pwd);
 		if(p==-1){
 			try {
-				getResponse().getWriter().write("password_error");
+				getResponse().getWriter().write("{error:1,reason:\"invalidate password\"}");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -46,7 +46,7 @@ public class LoginAction extends BaseAction{
 			return null;
 		}else if(p==-2){
 			try {
-				getResponse().getWriter().write("username_error");
+				getResponse().getWriter().write("{error:1,reason:\"invalidate username\"}");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
