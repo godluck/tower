@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+
+	<!--  配置spring监听器 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:com/oliveryy/config/applicationContext.xml
+		</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	
+	<!--  配置Struts2的核心控制器FilterDispatcher  -->
+	<filter>
+		<!-- filter名称 -->
+		<filter-name>struts2</filter-name>
+		<!-- filter实现类 -->
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<!--  通过init-param配置节重新指定Struts2配置文件的位置 -->
+
+		<init-param>
+			<param-name>config</param-name>
+			<!--  指定struts.xml在WEB-INF目录下 -->
+			<param-value>
+				struts-default.xml,struts-plugin.xml,com/oliveryy/config/struts.xml
+			</param-value>
+		</init-param>
+	</filter>
+	<!--  配置filter的映射部分 -->
+
+	<filter-mapping>
+		<!--  filter名称 -->
+		<filter-name>struts2</filter-name>
+		<!--  所有用户请求，都会被FilterDispatcher拦截  -->
+		<url-pattern>*.do</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+	</filter-mapping>
+  
+  
+  
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
+</web-app>

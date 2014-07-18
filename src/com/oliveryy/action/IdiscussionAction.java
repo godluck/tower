@@ -6,11 +6,12 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.oliveryy.service.IDiscussionService;
 import com.oliveryy.service.IGroupService;
 import com.oliveryy.service.IUserService;
-
+@Component
 public class IdiscussionAction extends BaseAction{
 	@Autowired
 	private IDiscussionService discussionService;
@@ -18,7 +19,7 @@ public class IdiscussionAction extends BaseAction{
 	private IUserService userService;
 	private String disId;
 	public String excute(){
-		String id=getSession().get("id").toString();
+		String id=getSession().getAttribute("id").toString();
 		Map user=userService.getUserInfo(id);
 		Map[] replys=discussionService.getDetail(disId);
 		Map dis=discussionService.getDiscussion(disId,"d");

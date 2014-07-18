@@ -24,7 +24,13 @@ public interface IGroupService {
 	
 	public boolean setProject(String groupId, String projName);
 	
+	public boolean setManager(String groupId,String userId);
+	
 	public Map[] getGroups();
 	
 	public boolean deleteGroup(String groupId);
+	
+	public Map getGroupInfo(String groupId);
+	
+	public Map[] getGroups(String userId);
 }

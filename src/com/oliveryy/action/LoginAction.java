@@ -53,10 +53,10 @@ public class LoginAction extends BaseAction{
 			}
 			return null;
 		}else if (p==0||p==1){
-			getSession().put("id", uid);
+			getSession().setAttribute("id", uid);
 			return "projrct";
 		}else{
-			getSession().put("id", uid);
+			getSession().setAttribute("id", uid);
 			return "myself";
 		}
 	}

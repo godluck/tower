@@ -49,7 +49,7 @@ public class UserService implements IUserService {
 	public int setUpNewGroup(String userId,String groupName,String groupDescription) {
 		// TODO Auto-generated method stub
 		try{
-			String sql="insert into groups values(null,?,0,?,?,now())";
+			String sql="insert into groups values(null,?,0,?,?,now(),null)";
 			Object[] params={groupName,userId,groupDescription};
 			dao.runUpdate(sql, params);
 			String sql2="select group_id from groups where user_id=?";
@@ -80,4 +80,15 @@ public class UserService implements IUserService {
 		return true;
 	}
 
+	@Override
+	public Map[] getUserInGroup(String groupId) {
+		String sql="select user_id,user_name,group_id,user_role from user where group_id=?";
+		Object[] params={groupId};
+		return dao.runSelect(sql, params);
+	}
+	
+	public Map[] getManagers(){
+		String sql="select user_id,user_name,group_id,user_role from user where user_role=1";
+		return dao.runSelect(sql);
+	}
 }

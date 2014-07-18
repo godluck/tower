@@ -3,29 +3,21 @@ package com.oliveryy.action;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.oliveryy.service.IDiscussionService;
 import com.oliveryy.service.IUserService;
-
+@Component
 public class DiscussionAction extends BaseAction {
 	@Autowired
 	private IDiscussionService discussionService;
 	@Autowired
 	private IUserService userService;
 	private String discussionId;
-
-	public String getDiscussionId() {
-		return discussionId;
-	}
-
-	public void setDiscussionId(String discussionId) {
-		this.discussionId = discussionId;
-	}
-
 	private String discussionName;
 	private String groupId;
 	private String discussionContent;
-	private String id = getSession().get("id").toString();
+	private String id;
 
 	public String getDiscussionName() {
 		return discussionName;
@@ -51,8 +43,15 @@ public class DiscussionAction extends BaseAction {
 		this.discussionContent = discussionContent;
 	}
 
-	public String addDiscussion() {
+	public String getDiscussionId() {
+		return discussionId;
+	}
 
+	public void setDiscussionId(String discussionId) {
+		this.discussionId = discussionId;
+	}
+	public String addDiscussion() {
+		id=getSession().getAttribute("id").toString();
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "d")) {
 			getWriter().write("{error:0}");
@@ -64,7 +63,7 @@ public class DiscussionAction extends BaseAction {
 	}
 
 	public String addReport() {
-
+		id=getSession().getAttribute("id").toString();
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "r")) {
 			getWriter().write("{error:0}");
@@ -76,6 +75,7 @@ public class DiscussionAction extends BaseAction {
 	}
 
 	public String reply() {
+		id=getSession().getAttribute("id").toString();
 		if (discussionService.reply(discussionId, discussionContent, id)) {
 			getWriter().write("{error:0}");
 		} else {
@@ -86,6 +86,7 @@ public class DiscussionAction extends BaseAction {
 	}
 
 	public String deleteDiscussion() {
+		id=getSession().getAttribute("id").toString();
 		if (Integer.parseInt(userService.getUserInfo(id).get("user_role")
 				.toString()) < 3) {
 			if (discussionService.deleteDiscussion(discussionId)) {

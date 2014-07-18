@@ -40,21 +40,21 @@ public class GroupService implements IGroupService {
 	@Override
 	public Map getLeader(String groupId) {
 		// TODO Auto-generated method stub
-		String sql = "select * from user where group_id = ? and user_role = 2";
+		String sql = "select user_id,user_name,group_id,user_role from user where group_id = ? and user_role = 2";
 		Object[] param = { groupId };
 		return dao.runSelect(sql, param)[0];
 	}
 
 	@Override
 	public Map getAdmin(String groupId) {
-		String sql = "select * from user where group_id = ? and user_role = 1";
+		String sql = "select u.user_id,u.user_name,u.group_id,u.user_role from user u,groups g where g.group_id = ? and g.manager_id=u.user_id";
 		Object[] param = { groupId };
 		return dao.runSelect(sql, param)[0];
 	}
 
 	@Override
 	public Map[] getMember(String groupId) {
-		String sql = "select * from user where group_id = ? and user_role = 3";
+		String sql = "select user_id,user_name,group_id,user_role from user where group_id = ? and user_role = 3";
 		Object[] param = { groupId };
 		return dao.runSelect(sql, param);
 	}
@@ -87,6 +87,32 @@ public class GroupService implements IGroupService {
 				return false;
 			}
 		return true;
+	}
+
+	@Override
+	public Map getGroupInfo(String groupId) {
+		String sql="select * from groups where group_id=?";
+		Object[] params={groupId};
+		return dao.runSelect(sql, params)[0];
+	}
+
+	@Override
+	public boolean setManager(String groupId, String userId) {
+		try{
+			String sql = "update group set manager_id = ? where groupId = ?";
+			Object[] param = { userId, groupId };
+			dao.runUpdate(sql, param);
+			}catch(Exception e){
+				return false;
+			}
+		return true;
+	}
+
+	@Override
+	public Map[] getGroups(String userId) {
+		String sql="select * from groups where manager_id=?";
+		Object[] params={userId};
+		return dao.runSelect(sql, params);
 	}
 
 }

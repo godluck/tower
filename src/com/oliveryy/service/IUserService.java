@@ -20,6 +20,7 @@ public interface IUserService {
 
 	int setUpNewGroup(String userId,String groupName,String groupDescription);
 
-
-
+	public Map[] getUserInGroup(String groupId);
+	
+	public Map[] getManagers();
 }

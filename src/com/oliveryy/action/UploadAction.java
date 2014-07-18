@@ -20,7 +20,7 @@ public class UploadAction extends BaseAction {
 	@Autowired
 	private IFileService fileService;
 	private String groupId;
-	private String id=getSession().get("id").toString();
+	private String id;
 	public String getGroupId() {
 		return groupId;
 	}
@@ -28,6 +28,7 @@ public class UploadAction extends BaseAction {
 		this.groupId = groupId;
 	}
 	public String excute() {
+		id=getSession().getAttribute("id").toString();
 		int num = 0;
 		try {
 			up.initialize(ServletActionContext.getPageContext()

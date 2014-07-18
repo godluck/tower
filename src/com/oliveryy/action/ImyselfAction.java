@@ -10,11 +10,12 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.oliveryy.service.IDiscussionService;
 import com.oliveryy.service.ITaskService;
 import com.oliveryy.service.IUserService;
-
+@Component
 public class ImyselfAction extends BaseAction {
 	@Autowired
 	private IUserService userService;
@@ -23,7 +24,7 @@ public class ImyselfAction extends BaseAction {
 	@Autowired
 	private IDiscussionService discusstionService;
 	public String excute(){
-		String id=getSession().get("id").toString();
+		String id=getSession().getAttribute("id").toString();
 		Map user=userService.getUserInfo(id);
 		Map[] tasks=taskService.getUTasks(id);
 		for(int i=0;i<tasks.length;i++){

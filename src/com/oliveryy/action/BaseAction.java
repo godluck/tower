@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -23,8 +24,8 @@ public class BaseAction {
 		return respone;
 	}	
 	//to get session
-	public Map getSession(){
-		return ServletActionContext.getContext().getSession();
+	public HttpSession getSession(){
+		return getRequest().getSession();
 	}
 	public PrintWriter getWriter(){
 		try {

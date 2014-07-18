@@ -10,19 +10,10 @@
 	<package name="default" extends="struts-default">
 	  <!-- 开始配置action,千万要注意啦! -->
 	  <action name="loginAction"  class="loginAction">
-	     <result name="success">index.jsp</result>
-	     <result name="error">error.jsp</result>	     
-	  </action>
-	  
-	  <action name="showAction"  class="showAction">
-	     <result name="success">index.jsp</result>    
-	     <result name="error">error.jsp</result> 
-	  </action>
-	  <action name="registerAction"  class="registerAction">
-	  	<result name="success">login.jsp</result>
-	  </action>	
-	  <action name="registerCheckAction"  class="registerCheckAction">
-	  	<result name="success">login.jsp</result>
-	  </action>	
+	     <result name="project">projects.html</result>     
+	     <result name="myself">myself.html</result>     
+	  </action>  
+	  <action name="registerAction"  class="registerAction"></action>
+
 	 </package>
 </struts>

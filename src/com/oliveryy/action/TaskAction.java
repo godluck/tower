@@ -5,20 +5,20 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.oliveryy.action.BaseAction;
 import com.oliveryy.service.ITaskService;
 import com.oliveryy.service.IUserService;
-
+@Component
 public class TaskAction extends BaseAction {
 	@Autowired
 	private ITaskService taskService;
 	private String userId;
 	@Autowired
 	private IUserService userService;
-	private String id = getSession().get("id").toString();
-	private int role = Integer.parseInt(userService.getUserInfo(id)
-			.get("user_role").toString());
+	private String id;
+	private int role;
 	private String taskId;
 	private String taskName;
 	private String groupId;
@@ -59,6 +59,8 @@ public class TaskAction extends BaseAction {
 	}
 
 	public String addTask() {
+		id=getSession().getAttribute("id").toString();
+		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if (role < 3) {
 			SimpleDateFormat df = new SimpleDateFormat();
 			Date dl;
@@ -82,6 +84,8 @@ public class TaskAction extends BaseAction {
 	}
 
 	public String assignTask() {
+		id=getSession().getAttribute("id").toString();
+		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if (role < 3) {
 			String[] temp = { userId };
 			if (taskService.assignTask(taskId, temp, groupId)) {

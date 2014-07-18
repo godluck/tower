@@ -41,7 +41,6 @@
     <bean id="dao" class="com.oliveryy.dao.DbHelperImpl">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-
      <!-- 支持注解,搜索的目录！important!!!-->
 	 <context:component-scan base-package="com.oliveryy"/>
 	 <context:annotation-config/>
