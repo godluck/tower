@@ -30,7 +30,7 @@ public class DownloadAction extends BaseAction {
 		    up.downloadFile("/file/"+fileId+fn.substring(fn.lastIndexOf(".")),"",fn);  
 			return null;
 		} catch (Exception e) {
-			getWriter().write("{error:1,reason:\"failed to download\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"failed to download\"}");
 			e.printStackTrace();
 			return null;
 		}

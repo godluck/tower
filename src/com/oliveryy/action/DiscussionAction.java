@@ -54,9 +54,9 @@ public class DiscussionAction extends BaseAction {
 		id=getSession().getAttribute("id").toString();
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "d")) {
-			getWriter().write("{error:0}");
+			getWriter().write("{\"error\":0}");
 		} else {
-			getWriter().write("{error:1,reason:\"failed to create new discussion\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"failed to create new discussion\"}");
 		}
 		;
 		return null;
@@ -66,9 +66,9 @@ public class DiscussionAction extends BaseAction {
 		id=getSession().getAttribute("id").toString();
 		if (discussionService.createDiscussion(id, groupId, discussionName,
 				discussionContent, "r")) {
-			getWriter().write("{error:0}");
+			getWriter().write("{\"error\":0}");
 		} else {
-			getWriter().write("{error:1,reason:\"failed to create new report\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"failed to create new report\"}");
 		}
 		;
 		return null;

@@ -47,7 +47,8 @@ public class DbHelperImpl implements IDbhelper {
 				ps.setObject(i + 1, params[i]);
 			}
 			rs = ps.executeQuery();
-			if (rs.next() == true) {
+			if (rs.first() == true) {
+				rs.previous();
 				Result result = ResultSupport.toResult(rs);
 				Map[] rows = result.getRows();
 				return rows;
@@ -77,7 +78,8 @@ public class DbHelperImpl implements IDbhelper {
 			conn = getConnection();
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
-			if (rs.next() == true) {
+			if (rs.first() == true) {	
+				rs.previous();
 				Result result = ResultSupport.toResult(rs);
 				Map[] rows = result.getRows();
 				return rows;

@@ -23,7 +23,7 @@ public class IReportAction extends BaseAction {
 		Map[] reports=discussionService.getDiscussions(groupId, "r");
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONArray jreports=JSONArray.fromObject(reports);
-		String result="{id:"+id+",userinfo:"+juser.toString()+",reports:"+jreports.toString()+"}";
+		String result="{\"id\":"+id+",\"userinfo\":"+juser.toString()+",\"reports\":"+jreports.toString()+"}";
 		getWriter().write(result);
 		return null;
 	}

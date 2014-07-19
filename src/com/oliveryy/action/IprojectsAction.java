@@ -16,13 +16,13 @@ public class IprojectsAction extends BaseAction {
 	private IGroupService groupService;
 	@Autowired
 	private IUserService userService;
-	public String excute(){
+	public String execute(){
 		String id=getSession().getAttribute("id").toString();
 		Map user=userService.getUserInfo(id);
 		Map[] groups=groupService.getGroups();
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONArray jgroups=JSONArray.fromObject(groups);
-		String result="{id:"+id+",userinfo:"+juser.toString()+",groups:"+jgroups.toString()+"}";
+		String result="{\"id\":"+id+",\"userinfo\":"+juser.toString()+",\"groups\":"+jgroups.toString()+"}";
 		getWriter().write(result);
 		return null;
 	}

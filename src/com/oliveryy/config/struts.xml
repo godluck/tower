@@ -9,11 +9,16 @@
 	<constant name="struts.i18n.encoding" value="utf-8" />	
 	<package name="default" extends="struts-default">
 	  <!-- 开始配置action,千万要注意啦! -->
-	  <action name="loginAction"  class="loginAction">
-	     <result name="project">projects.html</result>     
-	     <result name="myself">myself.html</result>     
-	  </action>  
+	  <action name="loginAction"  class="loginAction"></action>  
 	  <action name="registerAction"  class="registerAction"></action>
-
+	  <action name="imyselfAction"  class="imyselfAction"></action>
+	  <action name="idiscussionAction"  class="idiscussionAction"></action>
+	  <action name="imemberAction"  class="imemberAction"></action>
+	  <action name="iprojectAction"  class="iprojectAction"></action>
+	  <action name="iReportAction"  class="iReportAction"></action>
+	  <action name="taskAction"  class="taskAction"></action>
+	  <action name="uploadAction"  class="uploadAction"></action>
+	  <action name="downloadAction"  class="downloadAction"></action>
+	<action name="discussionAction"  class="discussionAction"></action>
 	 </package>
 </struts>

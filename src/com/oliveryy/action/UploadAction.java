@@ -43,10 +43,10 @@ public class UploadAction extends BaseAction {
 				num = up.save("/file/"+fileId+"."+fileType);
 				fileService.upLoadFile(fileId, groupId, fileName,fileType ,id);
 			}
-			getWriter().write("{error:0}");
+			getWriter().write("{\"error\":0}");
 			return null;
 		} catch (Exception e) {
-			getWriter().write("{error:1,reason:\"failed to upload\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"failed to upload\"}");
 			e.printStackTrace();
 			return null;
 		}

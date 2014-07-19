@@ -1,5 +1,8 @@
 package com.oliveryy.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -73,8 +76,21 @@ public class GroupService implements IGroupService {
 
 	@Override
 	public Map[] getGroups() {
-		String sql="select * from groups";
-		return dao.runSelect(sql);
+		String sql="select g.group_id,g.group_status,g.group_name,g.user_id,g.group_discription,g.group_date,g.manager_id,u.user_name from groups g,user u where g.user_id=u.user_id";
+		Map[] tasks=dao.runSelect(sql);
+		for (int i = 0; i < tasks.length; i++) {
+			String dl = tasks[i].get("group_date").toString();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date dld = df.parse(dl);
+				tasks[i].remove("group_date");
+				tasks[i].put("group_date",dld);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tasks;
 	}
 
 	@Override
@@ -93,7 +109,20 @@ public class GroupService implements IGroupService {
 	public Map getGroupInfo(String groupId) {
 		String sql="select * from groups where group_id=?";
 		Object[] params={groupId};
-		return dao.runSelect(sql, params)[0];
+		Map[] tasks=dao.runSelect(sql, params);
+		for (int i = 0; i < tasks.length; i++) {
+			String dl = tasks[i].get("group_date").toString();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date dld = df.parse(dl);
+				tasks[i].remove("group_date");
+				tasks[i].put("group_date",dld);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tasks[0];
 	}
 
 	@Override
@@ -112,7 +141,20 @@ public class GroupService implements IGroupService {
 	public Map[] getGroups(String userId) {
 		String sql="select * from groups where manager_id=?";
 		Object[] params={userId};
-		return dao.runSelect(sql, params);
+		Map[] tasks= dao.runSelect(sql, params);
+		for (int i = 0; i < tasks.length; i++) {
+			String dl = tasks[i].get("group_date").toString();
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				java.util.Date dld = df.parse(dl);
+				tasks[i].remove("group_date");
+				tasks[i].put("group_date",dld);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return tasks;
 	}
 
 }

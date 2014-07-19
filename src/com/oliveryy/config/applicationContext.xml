@@ -17,9 +17,9 @@
 	<!-- 配置Proxool连接池,数据源，生产环境中注意修改相应参数 maximumConnectionCount,minimumConnectionCount值-->
 	 <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource">    
         <property name="driver" value="com.mysql.jdbc.Driver"/>       
-        <property name="driverUrl" value="jdbc:mysql://127.0.0.1:3306/MessageManagementSystem"/>        
-        <property name="user" value="oliver"/>     
-        <property name="password" value="oliver"/> 
+        <property name="driverUrl" value="jdbc:mysql://127.0.0.1:3306/test"/>        
+        <property name="user" value="rich"/>     
+        <property name="password" value="rich"/> 
         <property name="alias" value="ios_Proxool"/>   
         <!-- 最小保持的空闲连接数，连接池中可用的连接数量.如果当前的连接池中的连接少于这个数值.新的连接将被建立 默认为2 -->            
         <property name="prototypeCount" value="5"/>     

@@ -64,12 +64,12 @@ public class GroupAction extends BaseAction {
 						getWriter().write("m"+i+"failed");
 					}
 				}
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to setup new group\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to setup new group\"}");
 			}
 		} else {
-			getWriter().write("{error:1,reason:\"You already have a group\"");
+			getWriter().write("{\"error\":1,\"reason\":\"You already have a group\"");
 		}
 		return null;
 	}
@@ -79,12 +79,12 @@ public class GroupAction extends BaseAction {
 		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if (role<2) {
 			if (groupService.deleteGroup(groupId)) {
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to delete the group\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to delete the group\"}");
 			}
 		} else {
-			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"insufficient privileges\"}");
 		}
 		return null;
 	}
@@ -94,12 +94,12 @@ public class GroupAction extends BaseAction {
 		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if (role<3) {
 			if (groupService.addMember(groupMember, groupId)) {
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to add new member\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to add new member\"}");
 			}
 		} else {
-			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"insufficient privileges\"}");
 		}
 		return null;
 	}
@@ -107,9 +107,9 @@ public class GroupAction extends BaseAction {
 	public String changeGroup() {
 		id=getSession().getAttribute("id").toString();
 			if (userService.joinGroup(id, groupId)) {
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to change group\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to change group\"}");
 			}
 		return null;
 	}
@@ -119,12 +119,12 @@ public class GroupAction extends BaseAction {
 		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if (role<3) {
 			if (groupService.setProject(groupId, groupName)) {
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to edit group name\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to edit group name\"}");
 			}
 		} else {
-			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"insufficient privileges\"}");
 		}
 		return null;
 	}
@@ -133,12 +133,12 @@ public class GroupAction extends BaseAction {
 		role=Integer.parseInt(userService.getUserInfo(id).get("user_role").toString());
 		if(role<2){
 			if (groupService.setManager(groupId, userId)) {
-				getWriter().write("{error:0}");
+				getWriter().write("{\"error\":0}");
 			} else {
-				getWriter().write("{error:1,reason:\"failed to set manager\"}");
+				getWriter().write("{\"error\":1,\"reason\":\"failed to set manager\"}");
 			}
 		} else {
-			getWriter().write("{error:1,reason:\"insufficient privileges\"}");
+			getWriter().write("{\"error\":1,\"reason\":\"insufficient privileges\"}");
 		}
 		return null;
 	}

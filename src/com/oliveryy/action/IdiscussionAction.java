@@ -18,7 +18,7 @@ public class IdiscussionAction extends BaseAction{
 	@Autowired
 	private IUserService userService;
 	private String disId;
-	public String excute(){
+	public String execute(){
 		String id=getSession().getAttribute("id").toString();
 		Map user=userService.getUserInfo(id);
 		Map[] replys=discussionService.getDetail(disId);
@@ -26,7 +26,7 @@ public class IdiscussionAction extends BaseAction{
 		JSONObject juser=JSONObject.fromObject(user);
 		JSONObject jdis=JSONObject.fromObject(dis);
 		JSONArray jreplys=JSONArray.fromObject(replys);
-		String result="{id:"+id+",userinfo:"+juser.toString()+",discussion:"+jdis.toString()+",replys:"+jreplys.toString()+"}";
+		String result="{\"id\":"+id+",\"userinfo\":"+juser.toString()+",\"discussion\":"+jdis.toString()+",\"replys\":"+jreplys.toString()+"}";
 		getWriter().write(result);
 		return null;
 	}

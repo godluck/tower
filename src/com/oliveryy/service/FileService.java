@@ -13,7 +13,7 @@ public class FileService implements IFileService {
 	@Override
 	public boolean upLoadFile(String id,String groupId, String fileName,String fileType,String userId) {
 		try{
-			String sql="insert into file values(?,?,?,0,null,?,?)";
+			String sql="insert into files values(?,?,?,0,null,?,?)";
 			Object[] params={groupId,fileName,fileType,id,userId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
@@ -25,9 +25,9 @@ public class FileService implements IFileService {
 	@Override
 	public boolean score(String fileId,String score) {
 		try{
-			String sql="update file set file_score=? where file_time=?";
+			String sql="update files set file_score=? where file_time=?";
 			Object[] params={score,fileId};
-			String sql2="update file set file_status=2 where file_time=?";
+			String sql2="update files set file_status=2 where file_time=?";
 			Object[] params2={fileId};
 			dao.runUpdate(sql, params);
 			dao.runUpdate(sql2, params2);
@@ -40,7 +40,7 @@ public class FileService implements IFileService {
 	@Override
 	public boolean submit(String fileId) {
 		try{
-			String sql="update file set file_status=1 where file_time=?";
+			String sql="update files set file_status=1 where file_time=?";
 			Object[] params={fileId};
 			dao.runUpdate(sql, params);
 			}catch(Exception e){
@@ -51,7 +51,7 @@ public class FileService implements IFileService {
 
 	@Override
 	public Map[] getFileList(String groupId) {
-		String sql="select * from file where group_id=?";
+		String sql="select * from files where group_id=?";
 		Object[] params={groupId};
 		return dao.runSelect(sql, params);
 	}
@@ -59,7 +59,7 @@ public class FileService implements IFileService {
 
 	@Override
 	public String downLoadFile(String id) {
-		String sql="select file_name from file where file_time=?";
+		String sql="select file_name from files where file_time=?";
 		Object[] params={id};
 		Map[] rows=dao.runSelect(sql,params);
 		return rows[0].get("file_name").toString();
