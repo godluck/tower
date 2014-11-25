@@ -15,7 +15,7 @@
 }
 
 .jumbotron {
-  background-image:url('images/BG4.jpg');
+  background-image:url(../img/index_back.jpg);
   height: 500px;
 }
 
@@ -23,7 +23,10 @@
   position: relative;
   top:100px;
 }
+.index_learn_text{
+	color:#FFF;
 
+}
 .jumbotron h1 {
   color: #fff;
   font-size: 35px;  
